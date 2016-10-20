@@ -5,10 +5,10 @@ namespace dlwatersuk\Sagepay\Transaction;
 
 abstract class AbstractTransaction implements Transaction
 {
-    private $api;
-    private $basket;
-    private $customer;
-    private $card;
+    protected $api;
+    protected $basket;
+    protected $customer;
+    protected $card;
     protected $charge;
 
     public function __construct(API $api, Basket $basket, Card $card, Customer $customer) {
@@ -19,14 +19,8 @@ abstract class AbstractTransaction implements Transaction
     }
 
     public function payment() {
-
-    }
-
-    public function refund() {
-
-    }
-
-    public function repeat() {
-
+        $this
+            ->api
+            ->payment($this->basket, $this->card, $this->customer);
     }
 }
