@@ -1,9 +1,9 @@
 <?php
 
-namespace dlwatersuk\Sagepay;
+namespace dlwatersuk\Sagepay\Provider;
 
 
-interface SagepayPayment
+interface Provider
 {
     public function addSurcharge();
     public function removeSurcharge();

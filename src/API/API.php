@@ -3,7 +3,8 @@
 namespace dlwatersuk\Sagepay\API;
 
 
-interface Api
+interface API
 {
-
+    public function request($url, $data);
+    public function logRequest($response);
 }
