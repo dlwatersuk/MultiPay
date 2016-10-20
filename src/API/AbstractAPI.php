@@ -3,8 +3,10 @@
 namespace dlwatersuk\Sagepay\API;
 
 
-class AbstractAPI
+abstract class AbstractAPI implements API
 {
+    protected $response;
+
     public function request($url, $post) {
 
         if (!isset($url) || !isset($post)) {

@@ -3,7 +3,7 @@
 namespace dlwatersuk\Sagepay\Provider;
 
 
-class AbstractProvider implements Provider
+abstract class AbstractProvider implements Provider
 {
 
 }
