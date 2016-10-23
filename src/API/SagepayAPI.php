@@ -33,18 +33,35 @@ class SagepayAPI extends AbstractAPI
     }
 
     public function payment(Basket $basket, Card $card, Customer $customer) {
-
+        $response = $this->request($requestData);
+        return $this->format($response);
     }
 
     public function refund(Array $data) {
-
+        $response = $this->request($data);
+        return $this->format($response);
     }
 
     public function repeat(Array $data) {
-
+        $response = $this->request($data);
+        return $this->format($response);
     }
 
     public function void(Array $data) {
+        $response = $this->request($data);
+        return $this->format($response);
+    }
+
+    private function request($data) {
+        $post = '';
+        return parent::request($this->url, $post);
+    }
+
+    /**
+     * Used to standardise the response format
+     * @param $response
+     */
+    private function format($response) {
 
     }
 
@@ -53,8 +70,9 @@ class SagepayAPI extends AbstractAPI
     }
 
     private function vendorTxCode() {
-        $rand = mt_rand(time()/2,time());
-
+        $rand = hash('sha256', mt_rand(time()/2,time()).bin2hex(openssl_random_pseudo_bytes(10)));
+        $code = SagepaySettings::VENDORTXCODE_PREFIX;
+        $code .= $rand;
         $this->vendorTxCode = substr($code, 0, SagepaySettings::MAX_VENDORTXCODE_LENGTH);
     }
 }

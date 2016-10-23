@@ -7,7 +7,7 @@ abstract class AbstractAPI implements API
 {
     protected $response;
 
-    public function request($url, $post) {
+    protected function request($url, $post) {
 
         if (!isset($url) || !isset($post)) {
             throw new MultiPayException('URL or POST data not passed to curl');
@@ -46,7 +46,11 @@ abstract class AbstractAPI implements API
         return array_merge($output, $response);
     }
 
-    public function logRequest() {
+    protected function sanitise(){
+
+    }
+
+    protected function logRequest() {
 
     }
 }
