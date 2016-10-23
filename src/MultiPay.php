@@ -3,8 +3,6 @@
 namespace dlwatersuk\MultiPay;
 
 
-use dlwatersuk\Sagepay\Settings\GlobalSettings;
-
 final class MultiPay
 {
     private $gateway;
@@ -42,7 +40,7 @@ final class MultiPay
         return $this->basket;
     }
 
-    public function item(Closure $data) {
+    public function item(Array $data) {
         return new $this->$itemClass($data);
     }
 
@@ -50,8 +48,16 @@ final class MultiPay
         return new $this->$customerClass($data);
     }
 
-    public function card(Array $data) {
-        return new $this->$cardClass($data);
+    public function card($data) {
+        if (!is_array($data)) {
+            throw new MultiPayException('expecting data passed to card class to be an array');
+        }
+        $name = $data['name'];
+        $number = $data['number'];
+        $expires = $data['expires'];
+        $cv2 = $data['cv2'];
+        $starts = isset($data['starts']) ? $data['starts'] : null;
+        return new $this->$cardClass($name, $number, $expires, $cv2, $starts);
     }
 
     public function transaction() {

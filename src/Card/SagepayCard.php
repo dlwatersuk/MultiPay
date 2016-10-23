@@ -9,10 +9,10 @@ class SagepayCard extends AbstractCard
         'diners' => 'diners',
         'discover' => 'discover',
         'jcb' => 'jcb',
-        'VISA' => 'VISA',
-        'MC' => 'MC',
-        'UKE' => 'UKE',
-        'MAESTRO' => 'MAESTRO',
-        'AMEX' => 'AMEX',
+        'visa' => 'VISA',
+        'mastercard' => 'MC',
+        'ukelectron' => 'UKE',
+        'maestro' => 'MAESTRO',
+        'amex' => 'AMEX',
     ];
 }

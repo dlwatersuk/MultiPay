@@ -22,11 +22,11 @@ class AbstractCard implements Card
             $this->cardCodes['diners'] => '/^3(?:0[0-5]|[68][0-9])[0-9]{11}$/',
             $this->cardCodes['discover'] => '/^6(?:011|5[0-9]{2})[0-9]{12}$/',
             $this->cardCodes['jcb'] => '/^(?:2131|1800|35\d{3})\d{11}$/',
-            $this->cardCodes['VISA'] => '/^4[0-9]{12}(?:[0-9]{3})?$/',
-            $this->cardCodes['MC'] => '/^5[1-5][0-9]{14}$/',
-            $this->cardCodes['UKE'] => '/^(4026|417500|4508|4844|491(3|7))/',
-            $this->cardCodes['MAESTRO'] => '/^(5018|5020|5038|6304|6759|676[1-3])/',
-            $this->cardCodes['AMEX'] => '/^3[47][0-9]{13}$/'
+            $this->cardCodes['visa'] => '/^4[0-9]{12}(?:[0-9]{3})?$/',
+            $this->cardCodes['mastercard'] => '/^5[1-5][0-9]{14}$/',
+            $this->cardCodes['ukelectron'] => '/^(4026|417500|4508|4844|491(3|7))/',
+            $this->cardCodes['maestro'] => '/^(5018|5020|5038|6304|6759|676[1-3])/',
+            $this->cardCodes['amex'] => '/^3[47][0-9]{13}$/'
         ];
 
         $this->name = $name;
