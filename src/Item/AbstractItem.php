@@ -7,10 +7,15 @@ use dlwatersuk\Sagepay\Settings\GlobalSettings;
 
 class AbstractItem implements Item
 {
-    private $sku;
-    private $name;
-    private $price;
-    private $vat = GlobalSettings::DEFAULT_VAT;
+    protected $sku;
+    protected $name;
+    protected $price;
+    protected $vat = GlobalSettings::DEFAULT_VAT;
+    protected $required = [
+        'sku',
+        'name',
+        'price'
+    ];
 
     public function __construct(Array $item=[], $quantity=1) {
         if (!empty($item)) {
@@ -19,6 +24,10 @@ class AbstractItem implements Item
             }
         }
 
+    }
+
+    protected function validate() {
+        Validate::all($this);
     }
 
     public function __get($var) {

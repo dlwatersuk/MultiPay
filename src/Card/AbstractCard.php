@@ -47,16 +47,11 @@ class AbstractCard implements Card
 
         $this->type = isset($card['type']) ? $card['type'] : $this->cardType();
 
-        $this->checkFields();
+        $this->validate();
     }
 
-    private function checkFields() {
-        foreach ($this->required as $required) {
-            if (!isset($this->{$required})) {
-                throw new MultiPayException('Required field '.$required
-                    .' not set in '.__CLASS__.'.');
-            }
-        }
+    private function validate() {
+        Validate::all($this);
     }
 
     /**
