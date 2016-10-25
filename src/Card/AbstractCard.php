@@ -11,12 +11,19 @@ class AbstractCard implements Card
     private $starts;
     private $expires;
     private $cv2;
+    protected $required = [
+        'number',
+        'type',
+        'name',
+        'expires',
+        'cv2'
+    ];
 
     // subclass must define cardcodes, as they could be different for different providers
     protected $cardCodes = [];
     protected $cardPatterns = [];
 
-    public function __construct($name, $number, $expires, $cv2, $starts=null) {
+    public function __construct(Array $card = []) {
 
         $this->cardPatterns = [
             $this->cardCodes['diners'] => '/^3(?:0[0-5]|[68][0-9])[0-9]{11}$/',
@@ -29,17 +36,27 @@ class AbstractCard implements Card
             $this->cardCodes['amex'] => '/^3[47][0-9]{13}$/'
         ];
 
-        $this->name = $name;
-        $this->number = $this->strip($number);
-        $this->expires = $expires;
-        $this->cv2 = $cv2;
+        $this->name = $card['name'];
+        $this->number = $this->strip($card['number']);
+        $this->expires = $card['expires'];
+        $this->cv2 = $card['cv2'];
 
-        if ($starts != null) {
+        if ($card['starts'] != null) {
             $this->starts;
         }
 
-        $this->stripWhitespace();
-        $this->cardType();
+        $this->type = isset($card['type']) ? $card['type'] : $this->cardType();
+
+        $this->checkFields();
+    }
+
+    private function checkFields() {
+        foreach ($this->required as $required) {
+            if (!isset($this->{$required})) {
+                throw new MultiPayException('Required field '.$required
+                    .' not set in '.__CLASS__.'.');
+            }
+        }
     }
 
     /**
