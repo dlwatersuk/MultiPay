@@ -3,12 +3,14 @@
 namespace dlwatersuk\Sagepay\Item;
 
 
+use dlwatersuk\Sagepay\Settings\GlobalSettings;
+
 class AbstractItem implements Item
 {
     private $sku;
     private $name;
     private $price;
-    private $vat;
+    private $vat = GlobalSettings::DEFAULT_VAT;
 
     public function __construct(Array $item=[], $quantity=1) {
         if (!empty($item)) {
