@@ -26,14 +26,14 @@ abstract class AbstractCustomer implements Customer
 
     public function __set($name, $val) {
         if (!property_exists($this, $name)) {
-            throw new SagepayException('Trying to set non existant customer property '.$key);
+            throw new SagepayException('Trying to set non existent customer property '.$key);
         }
         $this->{$key} = $val;
     }
 
     public function __get($name, $val) {
         if (!property_exists($this, $name)) {
-            throw new SagepayException('Trying to get non existant customer property '.$key);
+            throw new SagepayException('Trying to get non existent customer property '.$key);
         }
         return $this->{$key};
     }

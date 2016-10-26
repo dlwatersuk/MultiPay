@@ -5,6 +5,11 @@ require('../vendor/autoload.php');
 // new
 $mp = new MultiPay('Sagepay');
 $basket = $mp->basket();
+
+$mp->customer([
+
+]);
+
 $item = $mp->item([
 
 ]);
@@ -28,14 +33,14 @@ $response = $mp->payment();
 $mp = new MultiPay('Sagepay');
 $response = $mp->transaction()
     ->refund([
-    'VendorTxCode' => '',
-    'Amount' => 11.10,
-]);
+        'VendorTxCode' => '',
+        'Amount' => 11.10,
+    ]);
 $response = $mp->transaction()
     ->void([
 
-]);
+    ]);
 $response = $mp->transaction()
     ->repeat([
 
-]);
+    ]);
