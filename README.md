@@ -12,16 +12,38 @@ Feel free to comment on or fork and improve this code.
 
 ## Example Usage for Sagepay
 ```php
+
+// instantiate a new MultiPay Object
 $mp = new MultiPay('Sagepay');
 
+// create a new MultiPay Item Object
 $item = $mp->item([
             'sku' => 'fakesku',
             'name' => 'fakename',
             'price' => 1
         ]);
-        
+
+// add this new item object to the multipay basket object
+// no need to instantiate a basket, it'll do that itself
 $mp->basket->add($item);
 
+// set the MultiPay customer object, again it will instantiate this itself
+$mp->customer([
+    'title' => '',
+    'firstname' => '',
+    'surname' => '',
+    'mobile' => '',
+    'phone' => '',
+    'address1' => '',
+    'address2' => '',
+    'address3' => '',
+    'postcode' => '',
+    'country' => '',
+    'county' => '',
+    'state' => '',
+]);
+
+// Create a new card object within MultiPay
 $mp->card->set([
     'name' => '',
     'number' => '',
@@ -29,6 +51,7 @@ $mp->card->set([
     'cv2' => ''
 ]);
 
+// post payment with the above card, customer and basket and get response
 $response = $mp
     ->transaction
     ->payment
