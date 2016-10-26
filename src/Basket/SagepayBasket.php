@@ -9,8 +9,12 @@ class SagepayBasket extends AbstractBasket
         return $this->items;
     }
 
-    public function getTotal() {
+    public function grossTotal() {
+        return $this->grossTotal;
+    }
 
+    public function netTotal() {
+        return $this->netTotal;
     }
 
     private function getBasketXml() {

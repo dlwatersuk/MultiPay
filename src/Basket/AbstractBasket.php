@@ -5,18 +5,12 @@ namespace dlwatersuk\MultiPay\Basket;
 
 abstract class AbstractBasket implements Basket
 {
-    private $netTotal;
-    private $grossTotal;
+    protected $netTotal;
+    protected $grossTotal;
     protected $items = [];
 
-    public function __construct(Array $items = []) {
-        if (!empty($items)) {
-            while (!empty($items)) {
-                $item = $items[0];
-                $this->add($item);
-                array_shift($items);
-            }
-        }
+    public function __construct($item, $quantity=1) {
+        $this->add($item, $quantity);
     }
 
     public function add(Item $item, $quantity=1) {
