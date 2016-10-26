@@ -19,14 +19,14 @@ abstract class AbstractBasket implements Basket
         }
     }
 
-    public function add(Item $item) {
+    public function add(Item $item, $quantity=1) {
         $this->netTotal += $item->price;
         $this->grossTotal += $item->price -
             ($item->price/(($item->vat/100)+1));
         $items[$item->sku] = $item;
     }
 
-    public function remove(Item $item) {
+    public function remove(Item $item, $quantity=1) {
         $this->netTotal -= $item->price;
         $this->grossTotal -= $item->price -
             ($item->price/(($item->vat/100)+1));

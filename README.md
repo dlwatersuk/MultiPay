@@ -25,7 +25,8 @@ $item = $mp->item([
 
 // add this new item object to the multipay basket object
 // no need to instantiate a basket, it'll do that itself
-$mp->basket->add($item);
+// if passing no second parameter (quantity) it will default to 1
+$mp->basket->add($item, 2);
 
 // set the MultiPay customer object, again it will instantiate this itself
 $mp->customer([
