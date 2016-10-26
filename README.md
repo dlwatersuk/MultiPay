@@ -44,7 +44,7 @@ $mp->customer([
 ]);
 
 // Create a new card object within MultiPay
-$mp->card->set([
+$mp->card([
     'name' => '',
     'number' => '',
     'expires' => '',
