@@ -17,7 +17,7 @@ class AbstractItem implements Item
         'price'
     ];
 
-    public function __construct(Array $item=[], $quantity=1) {
+    public function __construct(Array $item=[]) {
         if (!empty($item)) {
             foreach ($item as $key => $val) {
                 $this->__set($key, $val);
