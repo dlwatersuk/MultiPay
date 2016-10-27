@@ -1,6 +1,6 @@
 <?php
 
-namespace dlwatersuk\Sagepay\Settings;
+namespace dlwatersuk\MultiPay\Settings;
 
 
 class SagepaySettings extends AbstractSettings

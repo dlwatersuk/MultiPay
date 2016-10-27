@@ -1,6 +1,6 @@
 <?php
 
-namespace dlwatersuk\Sagepay\Settings;
+namespace dlwatersuk\MultiPay\Settings;
 
 
 class GlobalSettings
@@ -10,6 +10,9 @@ class GlobalSettings
     const CURRENCY_ROUND_MODE = PHP_ROUND_HALF_UP;
     const PAYMENT_SHORTCUT = true;
 
+    // logging
+    const ENABLE_DEBUG_LOG = true;
+    const ENABLE_ERROR_LOG = true;
 
     // CURL stuff
     const CURL_TTL = 60;
