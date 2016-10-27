@@ -2,8 +2,11 @@
 
 // example of usage
 require('../vendor/autoload.php');
+
 // new
+use dlwatersuk\MultiPay\MultiPay;
 $mp = new MultiPay('Sagepay');
+
 $basket = $mp->basket();
 
 $mp->customer([
