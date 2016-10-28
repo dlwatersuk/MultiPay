@@ -3,6 +3,7 @@
 namespace dlwatersuk\MultiPay;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use dlwatersuk\MultiPay\MultiPayException;
 
 class Log
 {
@@ -21,11 +22,14 @@ class Log
         }
     }
 
-    public function error($message) {
-
+    public static function error($message) {
+        $log = new self();
+        $log->errorLog->error($message);
+        throw new MultiPayException($message);
     }
 
-    public function warning($message) {
-
+    public static function warning($message) {
+        $log = new self();
+        $log->debugLog->debug($message);
     }
 }
