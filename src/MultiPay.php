@@ -19,14 +19,24 @@ final class MultiPay
     }
 
     public function setDependencies($providerName) {
-        // set classnames to use later
+        // set dependency class names
         $gateway = ucfirst($providerName);
-        $this->providerClass = $gateway.'Provider';
-        $this->basketClass = $gateway.'Basket';
-        $this->itemClass =  $gateway.'Item';
-        $this->cardClass = $gateway.'Card';
-        $this->customerClass = $gateway.'Customer';
-        $this->transactionClass = $gateway.'Transaction';
+        $this->providerClass = class_exists($gateway.'Provider')
+            ? $gateway.'Provider' : 'GenericProvider';
+        $this->basketClass = class_exists($gateway.'Basket')
+            ? $gateway.'Basket' : 'GenericBasket';
+        $this->itemClass =  class_exists($gateway.'Item')
+            ? $gateway.'Item' : 'GenericItem';
+        $this->cardClass = class_exists($gateway.'Card')
+            ? $gateway.'Card' : 'GenericCard';
+        $this->customerClass = class_exists($gateway.'Customer')
+            ? $gateway.'Customer' : 'GenericCustomer';
+        $this->transactionClass = class_exists($gateway.'Transaction')
+            ? $gateway.'Transaction' : 'GenericTransaction';
+
+        if (!class_exists($gateway.'API')) {
+            Log::error("Class {$gateway}API not found.");
+        }
         $this->apiClass = $gateway.'API';
 
         // load dependencies
@@ -50,7 +60,7 @@ final class MultiPay
 
     public function card($data) {
         if (!is_array($data)) {
-            throw new MultiPayException('expecting data passed to card class to be an array');
+            Log::error('expecting data passed to card class to be an array');
         }
         $name = $data['name'];
         $number = $data['number'];
