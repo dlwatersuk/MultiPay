@@ -1,6 +1,8 @@
 <?php
 
 namespace dlwatersuk\MultiPay\Utilities;
+use dlwatersuk\MultiPay\Log;
+use dlwatersuk\MultiPay\MultiPayException;
 
 class Validate
 {
@@ -16,7 +18,9 @@ class Validate
 
         foreach ($object->required as $field) {
             if (!isset($object->{$field})) {
-                throw new Exception('Attribute '.$field.' must be set in '.__CLASS__.'.');
+                $message = 'Attribute '.$field.' must be set in '.__CLASS__.'.';
+                Log::error($message);
+                throw new MultiPayException($message);
             }
         }
     }
@@ -25,5 +29,12 @@ class Validate
         if (!isset($object->rules)) {
             return;
         }
+
+        foreach ($object->rules as $field => $rule) {
+            if (!preg_match($rule, $object->{$field})) {
+                Log::error("Rule {$rule} validation failed on {$field}");
+            }
+        }
+
     }
 }
