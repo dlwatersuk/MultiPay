@@ -21,8 +21,7 @@ final class MultiPay
     public function setDependencies($providerName) {
         // set dependency class names
         $gateway = ucfirst($providerName);
-        $this->providerClass = class_exists($gateway.'Provider')
-            ? $gateway.'Provider' : 'GenericProvider';
+
         $this->basketClass = class_exists($gateway.'Basket')
             ? $gateway.'Basket' : 'GenericBasket';
         $this->itemClass =  class_exists($gateway.'Item')
@@ -38,6 +37,11 @@ final class MultiPay
             Log::error("Class {$gateway}API not found.");
         }
         $this->apiClass = $gateway.'API';
+
+        if (!class_exists($gateway.'Provider')) {
+            Log::error("Class {$gateway}Provider not found.");
+        }
+        $this->providerClass = $gateway.'Provider';
 
         // load dependencies
         $this->basket = new $this->$basketClass();
