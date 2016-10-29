@@ -18,9 +18,7 @@ class Validate
 
         foreach ($object->required as $field) {
             if (!isset($object->{$field})) {
-                $message = 'Attribute '.$field.' must be set in '.__CLASS__.'.';
-                Log::error($message);
-                throw new MultiPayException($message);
+                Log::error('Attribute '.$field.' must be set in '.__CLASS__.'.');
             }
         }
     }
