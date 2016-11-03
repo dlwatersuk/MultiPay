@@ -2,7 +2,10 @@
 
 namespace dlwatersuk\MultiPay;
 
-
+/**
+ * Class MultiPay
+ * @package dlwatersuk\MultiPay
+ */
 final class MultiPay
 {
     private $gateway;
@@ -13,11 +16,18 @@ final class MultiPay
     private $item;
     private $api;
 
+    /**
+     * MultiPay constructor.
+     * @param string $gateway
+     */
     public function __construct($gateway='Sagepay') {
         $this->gateway = $gateway;
         $this->setDependencies($gateway);
     }
 
+    /**
+     * @param $providerName
+     */
     public function setDependencies($providerName) {
         // set dependency class names
         $gateway = ucfirst($providerName);
@@ -50,18 +60,33 @@ final class MultiPay
         $this->api = new $this->$apiClass();
     }
 
+    /**
+     * @return mixed
+     */
     public function basket() {
         return $this->basket;
     }
 
+    /**
+     * @param array $data
+     * @return mixed
+     */
     public function item(Array $data) {
         return new $this->$itemClass($data);
     }
 
+    /**
+     * @param array $data
+     * @return mixed
+     */
     public function customer(Array $data) {
         return new $this->$customerClass($data);
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     public function card($data) {
         if (!is_array($data)) {
             Log::error('expecting data passed to card class to be an array');
@@ -74,6 +99,9 @@ final class MultiPay
         return new $this->$cardClass($name, $number, $expires, $cv2, $starts);
     }
 
+    /**
+     * @return mixed
+     */
     public function transaction() {
         return new $this->$transactionClass(
             $this->api,
@@ -83,6 +111,10 @@ final class MultiPay
         );
     }
 
+    /**
+     * Shortcut for Transaction -> Payment
+     * @return mixed
+     */
     public function payment() {
         return $this
             ->transaction()
