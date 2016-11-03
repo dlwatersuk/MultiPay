@@ -13,6 +13,10 @@ abstract class AbstractAPI implements API
             throw new MultiPayException('URL or POST data not passed to curl');
         }
 
+        if (is_array($post)) {
+            $post = http_build_query($post);
+        }
+
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, $url);
