@@ -1,6 +1,6 @@
 <?php
 
-namespace dlwatersuk\Sagepay\API;
+namespace dlwatersuk\MultiPay\API;
 
 
 interface API

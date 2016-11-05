@@ -1,9 +1,9 @@
 <?php
 
-namespace dlwatersuk\Sagepay\API;
+namespace dlwatersuk\MultiPay\API;
 
 
-use dlwatersuk\Sagepay\Settings\SagepaySettings;
+use dlwatersuk\MultiPay\Settings\SagepaySettings;
 
 class SagepayAPI extends AbstractAPI
 {
@@ -33,7 +33,10 @@ class SagepayAPI extends AbstractAPI
     }
 
     public function payment(Basket $basket, Card $card, Customer $customer) {
-        $response = $this->request($requestData);
+        $data = [
+
+        ];
+        $response = $this->request($data);
         return $this->format($response);
     }
 
@@ -52,9 +55,8 @@ class SagepayAPI extends AbstractAPI
         return $this->format($response);
     }
 
-    private function request($data) {
-        $post = '';
-        return parent::request($this->url, $post);
+    protected function request($data) {
+        return parent::request($this->url, $data);
     }
 
     /**
