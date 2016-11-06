@@ -1,7 +1,7 @@
 <?php
 
 namespace dlwatersuk\MultiPay;
-
+use dlwatersuk\MultiPay\Utilities\Log;
 /**
  * Class MultiPay
  * @package dlwatersuk\MultiPay

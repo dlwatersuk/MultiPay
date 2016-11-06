@@ -1,6 +1,6 @@
 <?php
 
-namespace dlwatersuk\MultiPay\Settings;
+namespace dlwatersuk\MultiPay\Utilities;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use dlwatersuk\MultiPay\MultiPayException;
