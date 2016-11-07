@@ -1,7 +1,14 @@
 <?php
 
+/**
+ * This class should be the only class a developer needs to instantiate when working with MultiPay
+ * if you need to add new payment providers/gateways please see the Contributions.md for info
+ */
+
 namespace dlwatersuk\MultiPay;
 use dlwatersuk\MultiPay\Utilities\Log;
+use dlwatersuk\MultiPay\API\SagepayAPI;
+
 /**
  * Class MultiPay
  * @package dlwatersuk\MultiPay
@@ -46,11 +53,12 @@ final class MultiPay
         if (!class_exists($gateway.'API')) {
             Log::error("Class {$gateway}API not found.");
         }
-        $this->apiClass = $gateway.'API';
 
         if (!class_exists($gateway.'Provider')) {
             Log::error("Class {$gateway}Provider not found.");
         }
+
+        $this->apiClass = $gateway.'API';
         $this->providerClass = $gateway.'Provider';
 
         // load dependencies
