@@ -23,6 +23,15 @@ final class MultiPay
     private $item;
     private $api;
 
+    // class name holders
+    private $basketClass;
+    private $itemClass;
+    private $cardClass;
+    private $customerClass;
+    private $transactionClass;
+    private $apiClass;
+    private $providerClass;
+
     /**
      * MultiPay constructor.
      * @param string $gateway
@@ -50,22 +59,27 @@ final class MultiPay
         $this->transactionClass = class_exists($gateway.'Transaction')
             ? $gateway.'Transaction' : 'GenericTransaction';
 
-        if (!class_exists($gateway.'API')) {
-            Log::error("Class {$gateway}API not found.");
-        }
-
-        if (!class_exists($gateway.'Provider')) {
-            Log::error("Class {$gateway}Provider not found.");
-        }
-
         $this->apiClass = $gateway.'API';
         $this->providerClass = $gateway.'Provider';
 
+        try {
+            $this->api = new $this->apiClass();
+            $this->provider = new $this->providerClass();
+        } catch (Exception $e) {
+            if (!class_exists($gateway.'API')) {
+                Log::error("Class {$gateway}API not found.");
+            }
+            if (!class_exists($gateway.'Provider')) {
+                Log::error("Class {$gateway}Provider not found.");
+            }
+            Log::error($e->getMessage());
+        }
+
         // load dependencies
-        $this->basket = new $this->$basketClass();
-        $this->provider = new $this->$providerClass();
-        $this->customer = new $this->$customerClass();
-        $this->api = new $this->$apiClass();
+        $this->basket = new $this->basketClass();
+        $this->provider = new $this->providerClass();
+        $this->customer = new $this->customerClass();
+        $this->api = new $this->apiClass();
     }
 
     /**
@@ -80,7 +94,7 @@ final class MultiPay
      * @return mixed
      */
     public function item(Array $data) {
-        return new $this->$itemClass($data);
+        return new $this->itemClass($data);
     }
 
     /**
@@ -88,7 +102,7 @@ final class MultiPay
      * @return mixed
      */
     public function customer(Array $data) {
-        return new $this->$customerClass($data);
+        return new $this->customerClass($data);
     }
 
     /**
@@ -104,14 +118,14 @@ final class MultiPay
         $expires = $data['expires'];
         $cv2 = $data['cv2'];
         $starts = isset($data['starts']) ? $data['starts'] : null;
-        return new $this->$cardClass($name, $number, $expires, $cv2, $starts);
+        return new $this->cardClass($name, $number, $expires, $cv2, $starts);
     }
 
     /**
      * @return mixed
      */
     public function transaction() {
-        return new $this->$transactionClass(
+        return new $this->transactionClass(
             $this->api,
             $this->basket,
             $this->card,
