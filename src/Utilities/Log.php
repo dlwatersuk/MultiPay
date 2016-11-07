@@ -4,6 +4,7 @@ namespace dlwatersuk\MultiPay\Utilities;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use dlwatersuk\MultiPay\MultiPayException;
+use dlwatersuk\MultiPay\Settings\GlobalSettings;
 
 class Log
 {
