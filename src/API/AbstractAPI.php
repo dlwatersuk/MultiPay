@@ -3,6 +3,9 @@
 namespace dlwatersuk\MultiPay\API;
 
 
+use dlwatersuk\MultiPay\Settings\GlobalSettings;
+use dlwatersuk\MultiPay\MultiPayException;
+
 abstract class AbstractAPI implements API
 {
     protected $response;
